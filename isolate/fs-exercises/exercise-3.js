@@ -20,7 +20,7 @@ const log = (logId, value) => console.log(
 
 // --- main script ---
 
-const newFileContents = '*[]*';
+const newFileContents = __dirname + '/' + process.argv[2];
 log(1, newFileContents);
 
 const writeFileCallback = (err) => {
@@ -39,11 +39,11 @@ const writeFileCallback = (err) => {
     log(4, '\033[32mpass!\x1b[0m');
   };
 
-  fs._(_, _, _);
+  fs.readFile(FILE_PATH, 'utf-8', readFileCallback);
   log(3, 'reading file ...');
 };
 
-fs._(_, _, _);
+fs.writeFile(FILE_PATH, newFileContents, writeFileCallback);
 log(2, 'writing file ...');
 
 

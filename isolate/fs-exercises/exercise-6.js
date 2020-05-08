@@ -31,14 +31,14 @@ const targetFilePath = __dirname + '/' + process.argv[2];
 log(1, targetFilePath)
 
 // refactor the code below to be asynchronous
-
-log(2, 'copying file ...');
 fs.copyFileSync(SOURCE_PATH, targetFilePath);
+log(2, 'copying file ...');
 
-log(3, 'reading target file ...');
 const copiedContent = fs.readFileSync(targetFilePath, 'utf-8');
+log(3, 'reading target file ...');
+
 
 log(4, copiedContent);
 
-assert.strictEqual(copiedContent, SOURCE_TEXT);
-log(5, '\033[32mpass!\x1b[0m');
+assert.strictEqual(SOURCE_TEXT, copiedContent);
+log(5, 'pass!');

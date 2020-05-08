@@ -30,15 +30,47 @@ log(0.2, ORIGINAL_TEXT);
 // 1. fill in the blanks (and pass!)
 // 2. refactor to asynchronous
 
-log(1, 'appending to file ...');
-fs._(_, _);
+// log(1, 'appending to file ...');
+// fs.appendFileSync(SOURCE_PATH, ORIGINAL_TEXT);
 
-log(2, 'appending to file ...');
-fs._(_, _);
+// log(2, 'appending to file ...');
+// fs.appendFileSync(SOURCE_PATH, ORIGINAL_TEXT);
 
-log(1, 'reading file ...');
-const newText = fs._(SOURCE_PATH, _);
-log(4, newText);
+// log(1, 'reading file ...');
+// const newText = fs.readFileSync(SOURCE_PATH, 'utf-8');
+// log(4, newText);
 
-assert.strictEqual(newText, ORIGINAL_TEXT + ORIGINAL_TEXT + ORIGINAL_TEXT);
-log(5, '\033[32mpass!\x1b[0m');
+// assert.strictEqual(newText, ORIGINAL_TEXT + ORIGINAL_TEXT + ORIGINAL_TEXT);
+// log(5, 'pass!');
+
+
+fs.appendFile(SOURCE_PATH, ORIGINAL_TEXT, err => {
+  if (err) {
+    log(1, err);
+    return;
+  };
+  log(1, "appending to file ...");
+  
+  fs.appendFile(SOURCE_PATH, ORIGINAL_TEXT, err => {
+    if (err) {
+      log(2, err);
+      return;
+    }
+    log(2, "appending to file ...");
+    
+    fs.readFile(SOURCE_PATH, "utf-8", (err, newText) => {
+      if (err) {
+        log(3, err);
+        return;
+      }
+      log(3, "reading file ...");
+      log(4, newText);
+      assert.strictEqual(
+        newText,
+        ORIGINAL_TEXT + ORIGINAL_TEXT + ORIGINAL_TEXT
+      );
+      log(5, "pass!");
+    });
+  });
+});
+///wow that was a long text :`)
