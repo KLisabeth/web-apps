@@ -19,18 +19,38 @@ _;
 // statically serve the frontend
 _;
 
-app.post('/api/:value', (req, res) => {
-  const paramValue = req.params.value;
-  const queryValue = req.query.value;
-  const bodyValue = req.body.value;
+// declare the routes
+app.post('/param/:value', (req, res) => {
+  // read value from the param
+  _;
 
   console.log(`param value: ${paramValue}`);
-  console.log(`query value: ${queryValue}`);
-  console.log(`body value: ${bodyValue}`);
 
   const responseData = {
     paramValue,
+  };
+  res.json(responseData);
+});
+
+app.post('/query', (req, res) => {
+  // read value from the query
+  _;
+
+  console.log(`query value: ${queryValue}`);
+
+  const responseData = {
     queryValue,
+  };
+  res.json(responseData);
+});
+
+app.post('/body', (req, res) => {
+  // read value from the body
+  _;
+
+  console.log(`body value: ${bodyValue}`);
+
+  const responseData = {
     bodyValue,
   };
   res.json(responseData);
