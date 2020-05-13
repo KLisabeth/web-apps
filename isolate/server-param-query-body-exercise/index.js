@@ -6,55 +6,38 @@ const config = require('./config');
 const logger = require('./middleware/logger');
 
 // initialize the app
-_;
+const app = express();
 
 // log requests
-_;
+app.use(logger);
 
 // parse body
-_;
+app.use(bodyParser.raw({type: "text/plain"}));
 // parse queries
-_;
-
+app.use(bodyParser.json());
 // statically serve the frontend
-_;
+app.use("/", express.static("public"));
 
-// declare the routes
-app.post('/param/:value', (req, res) => {
-  // read value from the param
-  _;
+app.post("/api/:value", (req, res) => {
+  const paramValue = req.params.value;
+  const queryValue = req.query.value;
+  const bodyValue = req.body.value;
 
   console.log(`param value: ${paramValue}`);
-
-  const responseData = {
-    paramValue,
-  };
-  res.json(responseData);
-});
-
-app.post('/query', (req, res) => {
-  // read value from the query
-  _;
-
   console.log(`query value: ${queryValue}`);
-
-  const responseData = {
-    queryValue,
-  };
-  res.json(responseData);
-});
-
-app.post('/body', (req, res) => {
-  // read value from the body
-  _;
-
   console.log(`body value: ${bodyValue}`);
 
   const responseData = {
+    paramValue,
+    queryValue,
     bodyValue,
   };
   res.json(responseData);
 });
 
 // start the app
-_;
+app.listen(config.PORT, () => {
+  console.log(
+    `App is listening at http://localhost:${config.PORT} (${config.MODE} mode)`
+  );
+});;
