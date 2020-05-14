@@ -27,6 +27,9 @@
 
 ## Prep Work
 
+### Prep slides & recordings
+Recordings: [Part 1](https://vimeo.com/417960548), [Part 2](https://vimeo.com/418360319), [Part 3](https://vimeo.com/418359614)
+
 ### HTTP Statuses
 
 - [In 60 Seconds](https://www.youtube.com/watch?v=GrNrcmD6HLA)
@@ -69,7 +72,7 @@ Practice refactoring small Express apps from single-file servers into multiple f
 
 ### Suggested Study
 
-- [\_](_)
+- [Traversy Crash Course](https://www.youtube.com/watch?v=L72fhGm1tfE)
 
 ### Exercises
 
