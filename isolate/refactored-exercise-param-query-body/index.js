@@ -35,38 +35,7 @@ app.get('/api', (req, res) => {
   res.send('api!');
 });
 
-app.post('/api/param/:value', (req, res) => {
-  const paramValue = req.params.value;
-
-  console.log(`param value: ${paramValue}`);
-
-  const responseData = {
-    paramValue,
-  };
-  res.json(responseData);
-});
-
-app.post('/api/query', (req, res) => {
-  const queryValue = req.query.value
-
-  console.log(`query value: ${queryValue}`);
-
-  const responseData = {
-    queryValue,
-  };
-  res.json(responseData);
-});
-
-app.post('/api/body', (req, res) => {
-  const bodyValue = req.body.value;
-
-  console.log(`body value: ${bodyValue}`);
-
-  const responseData = {
-    bodyValue,
-  };
-  res.json(responseData);
-});
+app.use('./api', api)
 
 app.use(function (err, req, res, next) {
   console.error(err.stack);
