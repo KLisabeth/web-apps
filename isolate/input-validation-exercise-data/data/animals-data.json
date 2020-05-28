@@ -1,0 +1,46 @@
+{
+    "nextId": 3,
+    "animals": [
+      {
+        "id": 1,
+        "habitat": "jungle",
+        "average_mass": "5",
+        "traits":{
+            "beak": true,
+            "feathers": true,
+            "fur": false,
+            "feet": true,
+            "flippers": false
+        },
+        "is_extinct": "true"
+      },
+
+      {
+        "id": 2,
+        "habitat": "savanna",
+        "average_mass": "50",
+        "traits":{
+            "beak": false,
+            "feathers": false,
+            "fur": true,
+            "feet": true,
+            "flippers": false
+        },
+        "is_extinct": "true"
+        },
+       
+      {
+        "id": 3,
+        "habitat": "desert",
+        "average_mass": "500",
+        "traits":{
+            "beak": true,
+            "feathers": false,
+            "fur": false,
+            "feet": true,
+            "flippers": false
+        },
+        "is_extinct": "true"
+        }
+    ]
+  }
