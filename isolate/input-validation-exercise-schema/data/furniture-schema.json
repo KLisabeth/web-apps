@@ -1,0 +1,41 @@
+{
+    "title": "Furniture",
+    "description": "Type of furniture",
+    "type": "array",
+    "properties": {
+      "id": {
+        "type": "number"
+      },
+      "materials": {
+        "type": "array",
+        "items": {
+      "properties":{
+            "stone": {
+              "type": "string"
+            },
+            "metal": {
+              "type": "string"
+            },
+            "plastic": {
+              "type": "string"
+            },
+            "wood": {
+              "type": "string"
+            }
+         }
+      }
+      },
+      "type": {
+        "type": "string"
+      },
+      "second_hand": {
+        "type": "boolean"
+      }
+    },
+    "required": [
+        "id",
+        "materials",
+        "type"
+    ]
+  }
+  
