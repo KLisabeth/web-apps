@@ -1,7 +1,7 @@
 {
     "title": "Furniture",
     "description": "Type of furniture",
-    "type": "array",
+    "type": "object",
     "properties": {
       "id": {
         "type": "number"
