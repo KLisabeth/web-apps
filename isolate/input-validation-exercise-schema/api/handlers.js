@@ -18,8 +18,8 @@ const handlers = {
       const furnitureDataString = await readFile(DATA_PATH, 'utf-8');
       const furnitureData = JSON.parse(furnitureDataString);
 
-      newFurniture.id = furnitureData.nextId;
-      furnitureData.nextId++;
+      // newFurniture.id = furnitureData.nextId;
+      // furnitureData.nextId++;
 
       const isValid = tv4.validate(newFurniture, FURNITURE_SCHEMA)
 
@@ -36,7 +36,7 @@ const handlers = {
         return
       }
 
-      furnitureData.furniture.push(newFurniture);
+      furnitureData.push(newFurniture);
 
       const newFurnitureDataString = JSON.stringify(furnitureData, null, '  ');
 
@@ -61,7 +61,7 @@ const handlers = {
       const furnitureDataString = await readFile(DATA_PATH, 'utf-8');
       const furnitureData = JSON.parse(furnitureDataString);
 
-      res.json(furnitureData.furniture);
+      res.json(furnitureData);
 
     } catch (err) {
       console.log(err)
@@ -81,8 +81,7 @@ const handlers = {
     try {
       const furnitureDataString = await readFile(DATA_PATH, 'utf-8');
       const furnitureData = JSON.parse(furnitureDataString);
-      const selectedFurniture = furnitureData.furniture
-        .find(profile => profile.id === idToUpdate);
+      const selectedFurniture = furnitureData.find(furniture => furniture.id === idToUpdate);
 
       res.json(selectedFurniture);
 
@@ -122,13 +121,12 @@ const handlers = {
       const furnitureDataString = await readFile(DATA_PATH, 'utf-8');
       const furnitureData = JSON.parse(furnitureDataString);
 
-      const entryToUpdate = furnitureData.furniture
-        .find(profile => profile.id === idToUpdate);
+      const entryToUpdate = furnitureData.find(furniture => furniture.id === idToUpdate);
 
       if (entryToUpdate) {
-        const indexOfFurniture = furnitureData.furniture
+        const indexOfFurniture = furnitureData
           .indexOf(entryToUpdate);
-        furnitureData.furniture[indexOfFurniture] = newFurniture;
+        furnitureData.indexOfFurniture = newFurniture;
 
         const newFurnitureDataString = JSON.stringify(furnitureData, null, '  ');
 
@@ -156,15 +154,12 @@ const handlers = {
 
     try {
       const furnitureDataString = await readFile(DATA_PATH, 'utf-8');
-      const furnitureData = JSON.parse(furnitureDataString);
+      let furnitureData = JSON.parse(furnitureDataString);
 
-      const entryToDelete = furnitureData.furniture
-        .find(profile => profile.id === idToDelete);
+      const entryToDelete = furnitureData.find(furniture => furniture.id === idToDelete);
 
       if (entryToDelete) {
-
-        furnitureData.furniture = furnitureData.furniture
-          .filter(profile => profile.id !== entryToDelete.id);
+        furnitureData = furnitureData.filter(furniture => furniture.id !== entryToDelete.id);
 
         const newFurnitureDataString = JSON.stringify(furnitureData, null, '  ');
 
@@ -176,8 +171,6 @@ const handlers = {
       }
 
     } catch (err) {
-      console.log(err);
-
       if (err && err.code === 'ENOENT') {
         res.status(404).end();
         return;
