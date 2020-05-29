@@ -12,19 +12,19 @@ const writeFile = util.promisify(fs.writeFile)
 const handlers = {
   create: async (req, res) => {
 
-    const newFurniture = req.body
+    const newFruit = req.body
 
     try {
       const fruitDataString = await readFile(DATA_PATH, 'utf-8');
       const fruitData = JSON.parse(fruitDataString);
 
-      newFurniture.id = fruitData.nextId;
-      fruitData.nextId++;
+      // newFruit.id = fruitData.nextId;
+      // fruitData.nextId++;
 
-      const isValid = _;
+      const isValid = tv4.validate(newFruit, FRUIT_SCHEMA);
 
-      if (_) {
-        const error = _;
+      if (!isValid) {
+        const error = tv4.error;
         console.error(error)
 
         res.status(400).json({
@@ -36,13 +36,13 @@ const handlers = {
         return
       }
 
-      fruitData.fruit.push(newFurniture);
+      fruitData.push(newFruit);
 
-      const newFurnitureDataString = JSON.stringify(fruitData, null, '  ');
+      const newFruitDataString = JSON.stringify(fruitData, null, '  ');
 
-      await writeFile(DATA_PATH, newFurnitureDataString);
+      await writeFile(DATA_PATH, newFruitDataString);
 
-      res.json(newFurniture);
+      res.json(newFruit);
 
     } catch (err) {
       console.log(err);
@@ -57,10 +57,10 @@ const handlers = {
   },
   readAll: async (req, res) => {
     try {
-      const fruitDataString = await _;
-      const fruitData = _;
+      const fruitDataString = await readFile(DATA_PATH, 'utf-8');
+      const fruitData = JSON.parse(fruitDataString);
 
-      res.json(fruitData.fruit);
+      res.json(fruitData);
 
     } catch (err) {
       console.log(err)
@@ -73,16 +73,15 @@ const handlers = {
     }
   },
   readOne: async (req, res) => {
-    const idToUpdateStr = _;
-    const idToUpdate = _;
+    const idToUpdateStr = req.params.id;
+    const idToUpdate = Number(idToUpdateStr);
 
     try {
       const fruitDataString = await readFile(DATA_PATH, 'utf-8');
       const fruitData = JSON.parse(fruitDataString);
-      const selectedFurniture = fruitData.fruit
-        .find(profile => profile.id === idToUpdate);
+      const selectedFruit = fruitData.find(file => file.id === idToUpdate);
 
-      res.json(selectedFurniture);
+      res.json(selectedFruit);
 
     } catch (err) {
       console.log(err)
@@ -98,18 +97,18 @@ const handlers = {
     const idToUpdateStr = req.params.id;
     const idToUpdate = Number(idToUpdateStr);
 
-    const newFurniture = req.body
-    newFurniture.id = idToUpdate;
-    const isValid = _
+    const newFruit = req.body
+    newFruit.id = idToUpdate;
+    const isValid = tv4.validate(newFruit, FRUIT_SCHEMA)
 
     if (!isValid) {
-      const error = _
+      const error = tv4.error
       console.error(error)
 
       res.status(400).json({
         error: {
-          _,
-          _
+          message: error.message,
+          dataPath: error.dataPath
         }
       })
       return
@@ -119,19 +118,18 @@ const handlers = {
       const fruitDataString = await readFile(DATA_PATH, 'utf-8');
       const fruitData = JSON.parse(fruitDataString);
 
-      const entryToUpdate = fruitData.fruit
-        .find(profile => profile.id === idToUpdate);
+      const entryToUpdate = fruitData.find(fruit => fruit.id === idToUpdate);
 
       if (entryToUpdate) {
-        const indexOfFurniture = fruitData.fruit
+        const indexOfFurniture = fruitData
           .indexOf(entryToUpdate);
-        fruitData.fruit[indexOfFurniture] = newFurniture;
+        fruitData[indexOfFurniture] = newFruit;
 
-        const newFurnitureDataString = JSON.stringify(fruitData, null, '  ');
+        const newFruitDataString = JSON.stringify(fruitData, null, '  ');
 
-        await writeFile(DATA_PATH, newFurnitureDataString);
+        await writeFile(DATA_PATH, newFruitDataString);
 
-        res.json(newFurniture);
+        res.json(newFruit);
       } else {
         res.json(`no entry with id ${idToUpdate}`);
       }
@@ -152,19 +150,19 @@ const handlers = {
 
     try {
       const fruitDataString = await readFile(DATA_PATH, 'utf-8');
-      const fruitData = JSON.parse(fruitDataString);
+      let fruitData = JSON.parse(fruitDataString);
 
-      const entryToDelete = fruitData.fruit
-        .find(profile => profile.id === idToDelete);
+      const entryToDelete = fruitData
+        .find(fruit => fruit.id === idToDelete);
 
       if (entryToDelete) {
 
-        fruitData.fruit = fruitData.fruit
-          .filter(profile => profile.id !== entryToDelete.id);
+        fruitData = fruitData
+          .filter(fruit => fruit.id !== entryToDelete.id);
 
-        const newFurnitureDataString = JSON.stringify(fruitData, null, '  ');
+        const newFruitDataString = JSON.stringify(fruitData, null, '  ');
 
-        await _;
+        await writeFile(DATA_PATH, newFruitDataString);
 
         res.json(entryToDelete);
       } else {
