@@ -29,5 +29,22 @@
     ],
     "type": "desk",
     "second_hand": true
+  },
+  {
+    "id": 8,
+    "materials": [
+      "wood"
+    ],
+    "type": "table",
+    "second_hand": false
+  },
+  {
+    "id": 7,
+    "materials": [
+      "wood",
+      "metal"
+    ],
+    "type": "chair",
+    "second_hand": false
   }
 ]
