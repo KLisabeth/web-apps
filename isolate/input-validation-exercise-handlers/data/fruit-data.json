@@ -22,5 +22,11 @@
     "name": "apple",
     "climate": "temperate",
     "harvest_season": "autumn"
+  },
+  {
+    "id": 7,
+    "name": "banana",
+    "climate": "temperate",
+    "harvest_season": "summer time"
   }
 ]
